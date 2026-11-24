@@ -23,7 +23,7 @@ class Equipo4LogicaTest extends TestCase
         $this->assertInstanceOf(Equipo4Controller::class, $this->controller);
     }
 
-    // === SECCION INTEGRANTE 1 (LIDER - 23150306) ===
+    // === SECCION INTEGRANTE 1 (LIDER 23150306) ===
 
     public function test_carga_maxima_alumno_regular_sin_reprobadas_es_36(): void
     {
@@ -40,13 +40,13 @@ class Equipo4LogicaTest extends TestCase
         $this->assertNull($this->controller->verificarBloqueos(false, 92.0, 0));
     }
 
-    // === SECCION INTEGRANTE 2 ===
+    // === SECCION INTEGRANTE 2 (23150315)===
 
-    // === SECCION INTEGRANTE 3 ===
+    // === SECCION INTEGRANTE 3 (23150304)===
 
-    // === SECCION INTEGRANTE 4 ===
+    // === SECCION INTEGRANTE 4 (23150313)===
 
-    // === SECCION INTEGRANTE 5 ===
+    // === SECCION INTEGRANTE 5 (23150364)===
 
-    // === SECCION INTEGRANTE 6 ===
+    // === SECCION INTEGRANTE 6 (23150357)===
 }
