@@ -25,6 +25,11 @@ class Equipo4LogicaTest extends TestCase
 
     // === SECCION INTEGRANTE 1 (LIDER - 23150306) ===
 
+    public function test_carga_maxima_regular_devuelve_36(): void
+    {
+        $this->assertSame(36, $this->controller->calcularCargaMaxima(85.0, 0));
+    }
+
     // === SECCION INTEGRANTE 2 ===
 
     // === SECCION INTEGRANTE 3 ===
