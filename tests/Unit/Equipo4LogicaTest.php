@@ -25,9 +25,19 @@ class Equipo4LogicaTest extends TestCase
 
     // === SECCION INTEGRANTE 1 (LIDER - 23150306) ===
 
-    public function test_carga_maxima_regular_devuelve_36(): void
+    public function test_carga_maxima_alumno_regular_sin_reprobadas_es_36(): void
     {
-        $this->assertSame(36, $this->controller->calcularCargaMaxima(85.0, 0));
+        $this->assertSame(36, $this->controller->calcularCargaMaxima(82.0, 0));
+    }
+
+    public function test_cuota_semestral_sin_beca_ni_reprobadas_es_3500(): void
+    {
+        $this->assertSame(3500.0, $this->controller->calcularCuotaSemestral(false, 0));
+    }
+
+    public function test_alumno_regular_sin_adeudo_no_tiene_bloqueos(): void
+    {
+        $this->assertNull($this->controller->verificarBloqueos(false, 92.0, 0));
     }
 
     // === SECCION INTEGRANTE 2 ===
