@@ -58,5 +58,41 @@ class Equipo4ApiTest extends TestCase
 
     // === SECCION INTEGRANTE 5 ===
 
+    public function test_payload_vacio_devuelve_422_con_error_en_los_8_campos(): void
+    {
+        $this->postJson($this->endpoint, [])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'promedio_anterior',
+                'materias_reprobadas',
+                'creditos_acumulados',
+                'creditos_solicitados',
+                'asistencia_porcentaje',
+                'tiene_beca',
+                'tiene_adeudo',
+                'ingles_aprobado',
+            ]);
+    }
+
+    public function test_tipos_erroneos_devuelven_422(): void
+    {
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'promedio_anterior' => 'noventa',
+            'tiene_beca' => 'si',
+        ]))
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['promedio_anterior', 'tiene_beca']);
+    }
+
+    public function test_valores_fuera_de_rango_devuelven_422(): void
+    {
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'promedio_anterior' => 105,
+            'creditos_solicitados' => 0,
+        ]))
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['promedio_anterior', 'creditos_solicitados']);
+    }
+
     // === SECCION INTEGRANTE 6 ===
 }
