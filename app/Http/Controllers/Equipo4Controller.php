@@ -112,7 +112,7 @@ class Equipo4Controller extends Controller
         }
 
         if ($reprobadas >= 3) {
-            return 'El alumno tiene 3 o más materias reprobadas.';
+            return 'El alumno debe acudir al comité por tener 3 o más materias reprobadas.';
         }
 
         return null;
