@@ -219,4 +219,25 @@ class Equipo4ApiTest extends TestCase
     }
 
     // === SECCION INTEGRANTE 6 ===
+
+    public function test_alumno_con_adeudo_no_es_autorizado_aunque_tenga_promedio_perfecto(): void
+    {
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'promedio_anterior' => 100.0,
+            'tiene_adeudo' => true,
+        ]))
+            ->assertOk()
+            ->assertJsonPath('autorizado', false);
+    }
+
+    public function test_promedio_con_sql_injection_devuelve_422_sin_detalles_internos(): void
+    {
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'promedio_anterior' => '90; DROP TABLE users;',
+        ]))
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['promedio_anterior'])
+            ->assertJsonMissingPath('exception')
+            ->assertJsonMissingPath('trace');
+    }
 }
