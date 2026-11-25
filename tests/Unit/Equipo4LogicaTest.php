@@ -48,5 +48,15 @@ class Equipo4LogicaTest extends TestCase
 
     // === SECCION INTEGRANTE 5 (23150364)===
 
+    public function test_carga_maxima_con_promedio_cero_devuelve_36(): void
+    {
+        $this->assertSame(36, $this->controller->calcularCargaMaxima(0.0, 0));
+    }
+
+    public function test_cuota_semestral_con_15_reprobadas_devuelve_10250(): void
+    {
+        $this->assertSame(10250.0, $this->controller->calcularCuotaSemestral(false, 15));
+    }
+
     // === SECCION INTEGRANTE 6 (23150357)===
 }
