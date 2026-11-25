@@ -82,6 +82,26 @@ class Equipo4LogicaTest extends TestCase
 
     // === SECCION INTEGRANTE 4 (23150313)===
 
+    public function test_carga_maxima_con_una_o_dos_reprobadas_devuelve_24(): void
+    {
+        foreach ([1, 2] as $reprobadas) {
+            $this->assertSame(24, $this->controller->calcularCargaMaxima(88.5, $reprobadas));
+        }
+    }
+
+    public function test_cuota_semestral_sin_beca_con_dos_reprobadas_devuelve_4400(): void
+    {
+        $this->assertSame(4400.0, $this->controller->calcularCuotaSemestral(false, 2));
+    }
+
+    public function test_tres_reprobadas_bloquean_para_revision_del_comite(): void
+    {
+        $this->assertSame(
+            'El alumno debe acudir al comité por tener 3 o más materias reprobadas.',
+            $this->controller->verificarBloqueos(false, 95.0, 3)
+        );
+    }
+
     // === SECCION INTEGRANTE 5 (23150364)===
 
     public function test_carga_maxima_con_promedio_cero_devuelve_36(): void

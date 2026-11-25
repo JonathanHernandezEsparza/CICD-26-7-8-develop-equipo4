@@ -180,6 +180,41 @@ class Equipo4ApiTest extends TestCase
 
     // === SECCION INTEGRANTE 4 ===
 
+    public function test_dos_reprobadas_autorizan_24_creditos_pero_rechazan_25(): void
+    {
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'materias_reprobadas' => 2,
+            'creditos_solicitados' => 24,
+        ]))
+            ->assertOk()
+            ->assertJsonPath('autorizado', true)
+            ->assertJsonPath('detalle_academico.carga_maxima_permitida', 24)
+            ->assertJsonPath('detalle_academico.cuota_semestral', 4400.0);
+
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'materias_reprobadas' => 2,
+            'creditos_solicitados' => 25,
+        ]))
+            ->assertOk()
+            ->assertJsonPath('autorizado', false)
+            ->assertJsonPath('detalle_academico.carga_maxima_permitida', 24);
+    }
+
+    public function test_servicio_social_comienza_con_182_creditos_acumulados(): void
+    {
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'creditos_acumulados' => 181,
+        ]))
+            ->assertOk()
+            ->assertJsonPath('detalle_academico.servicio_social_disponible', false);
+
+        $this->postJson($this->endpoint, $this->payloadValido([
+            'creditos_acumulados' => 182,
+        ]))
+            ->assertOk()
+            ->assertJsonPath('detalle_academico.servicio_social_disponible', true);
+    }
+
     // === SECCION INTEGRANTE 5 ===
 
     public function test_payload_vacio_devuelve_422_con_error_en_los_8_campos(): void
